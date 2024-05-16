@@ -41,7 +41,7 @@ def BlogEdit(request, pk):
     if request.method == 'POST':
         blog.titulo = request.POST.get('titulo')
         blog.contenido = request.POST.get('contenido')
-        # blog.categoria = request.POST.get('categoria')
+        # blog.categoria = request.POST.get('categoria')as
         blog.save()
         messages.success(request, '->' + blog.titulo + ' ¡Editado Correctamente!')
         return redirect('/')
