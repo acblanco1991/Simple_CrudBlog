@@ -40,7 +40,6 @@ def BlogEdit(request, pk):
     if request.method == 'POST':
         form = BlogForm(request.POST)
         if form.is_valid():
-            print('sasasas')
             blog.titulo=form.cleaned_data['titulo']
             blog.contenido=form.cleaned_data['contenido']
             blog.categoria=form.cleaned_data['categoria']
