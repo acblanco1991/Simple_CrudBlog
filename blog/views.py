@@ -18,47 +18,34 @@ from django.shortcuts import render, redirect
 # # Create your views here.
 def BlogList(request):
     blog = Blog.objects.all()
-    cate=Categoria.objects.all()
-    form = BlogForm
-    conntext ={"blog": blog, "cate": cate,'form':form }
-    return render(request, "index.html",conntext )
+    return render(request, "index.html", {"blog": blog})
+
 
 def BlogCreate(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('blog_list'))
+        titulo = request.POST.get('titulo', '')
+        contenido = request.POST.get('contenido', '')
+        nuevo_blog = Blog(titulo=titulo, contenido=contenido)
+        nuevo_blog.save()
+        messages.success(request, '¡Guardado Correctamente!')
+        return redirect('/')
 
-def BlogDetail(request, pk):
-    blog = Blog.objects.get(id=pk)
+
+def BlogDetail(request, id):
+    blog = Blog.objects.get(id=id)
     return render(request, "details.html", {"blog": blog})
+
 
 def BlogEdit(request, pk):
     blog = Blog.objects.get(id=pk)
-    print(request.method)
     if request.method == 'POST':
-        form = BlogForm(request.POST)
-        if form.is_valid():
-            blog.titulo=form.cleaned_data['titulo']
-            blog.contenido=form.cleaned_data['contenido']
-            blog.categoria=form.cleaned_data['categoria']
-            blog.save()
-            return redirect(reverse('blog_detail',args=[pk]))
-    else:
-        form = BlogForm(instance=blog)
-        return render(request, "edit.html", {"form": form})
-
-# def BlogEdit(request, pk):
-#     blog = Blog.objects.get(id=pk)
-#     if request.method == 'POST':
-#         blog.titulo = request.POST.get('titulo')
-#         blog.contenido = request.POST.get('contenido')
-#         # blog.categoria = request.POST.get('categoria')
-#         blog.save()
-#         messages.success(request, '->' + blog.titulo + ' ¡Editado Correctamente!')
-#         return redirect('/')
-#     return render(request, "edit.html", {"blog": blog})
+        blog.titulo = request.POST.get('titulo')
+        blog.contenido = request.POST.get('contenido')
+        # blog.categoria = request.POST.get('categoria')
+        blog.save()
+        messages.success(request, '->' + blog.titulo + ' ¡Editado Correctamente!')
+        return redirect('/')
+    return render(request, "edit.html", {"blog": blog})
 
 
 def BlogDelete(request, id):
@@ -70,7 +57,9 @@ def BlogDelete(request, id):
 
 def buscar_productos(request):
     query = request.GET.get('datos', '')  # Obtener el término de búsqueda de la consulta GET
+    print(query)
     blog = Blog.objects.filter(titulo__icontains=query)  # Filtrar productos por nombre
+    print(blog)
     return render(request, 'index.html', {'blog': blog})
 
 
@@ -78,6 +67,7 @@ class CategoriaList(ListView):
     model = models.Categoria
     template_name = 'categoria.html'
 
+    # success_url = reverse_lazy('categoria.html')
 
 
     def get_context_data(self, **kwargs):
@@ -86,8 +76,15 @@ class CategoriaList(ListView):
         # Add in a QuerySet of all the books
         form = CatForm()
         context["form"] = form
+        print(context)
 
         return context
+    # def get_queryset(self):
+    #
+    # def get(self, request):
+    #     categoria = Categoria.objects.all()
+    #     self.model.objects.all()
+    #     return render(request, 'categoria.html', {'categoria': categoria})
 
 
 class CategoriaCreate(CreateView):
@@ -95,7 +92,11 @@ class CategoriaCreate(CreateView):
     success_url = reverse_lazy('categoria_list')
     template_name = 'categoria.html'
     form_class = CatForm
+    # fields = ['nombre', 'descripcion']
 
+    # def form_valid(self, form):
+    #
+    # def form_invalid(self, form):
 
 
 class CategoriaDetail(DetailView):
@@ -120,6 +121,7 @@ class CategoriaDelete(edit.DeleteView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context["aymarin"] = 'aymaas'
+        print(context)
 
         return context
 

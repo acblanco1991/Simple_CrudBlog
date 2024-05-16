@@ -16,7 +16,7 @@ class Categoria(models.Model):
         return self.nombre
 
 class Blog(models.Model):
-    titulo = models.CharField(max_length=50, null=True, blank=True)
+    titulo = models.CharField(max_length=50, null=True)
     contenido = models.TextField(blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True)
