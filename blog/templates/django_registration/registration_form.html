@@ -1,0 +1,105 @@
+{% extends 'layouts/registration.html' %}
+{% load static %}
+
+{% block otherstyles %}
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="contenedor">
+        <div class="int-contenedor py-0">
+            <div class="body py-0">
+                <div class="container-fluid">
+                    <div class="row auth-row">
+                        <div class="col-xl-5 col-lg-6 col-md-7 position-relative mx-auto">
+                            <div class="auth-content flex-column pb-md-8 pb-13">
+                                <div class="text-center mb-7">
+                                    <a class="navbar-brand me-0" href="{% url 'login' %}">
+                                        <img class="brand-img d-inline-block" src="{% static 'img/logo-light.png' %}"
+                                             alt="brand">
+                                    </a>
+                                </div>
+                                <form class="w-100" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                                    <div class="row">
+                                        <div class="col-xl-7 col-sm-10 mx-auto">
+                                            <div class="text-center mb-4">
+                                                <h4>Crear Cuenta</h4>
+                                            </div>
+                                            <div class="row gx-3">
+                                                <div class="form-group col-lg-12">
+                                                    <div class="form-label-group">
+                                                        <label>Nombre</label>
+                                                    </div>
+
+                                                    <input type="text" class="form-control" id="first_name"
+                                                           name="first_name"
+                                                           placeholder="Nombre" required>
+
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <div class="form-label-group">
+                                                        <label>Apellidos</label>
+                                                    </div>
+
+                                                    <input type="text" class="form-control" id="last_name"
+                                                           name="last_name"
+                                                           placeholder="Apellidos" required>
+
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <div class="form-label-group">
+                                                        <label>Correo </label>
+                                                    </div>
+
+                                                    <input class="form-control"
+                                                           type="email" id="email" name="email"
+                                                           placeholder="Correo electrónico"
+                                                           autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <div class="form-label-group">
+                                                        <label>Contraseña</label>
+                                                    </div>
+                                                    <div class="input-group password-check">
+														<span class="input-affix-wrapper affix-wth-text">
+															<input class="form-control" id="password1" name="password1"
+                                                                   placeholder="Ingrese su contraseña"
+                                                                   type="password" autocomplete="off" required>
+														</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <div class="form-label-group">
+                                                        <label>Confirmación de contraseña</label>
+                                                    </div>
+                                                    <div class="input-group password-check">
+														<span class="input-affix-wrapper affix-wth-text">
+															<input class="form-control" id="password2" name="password2"
+                                                                   placeholder="Confirme contraseña"
+                                                                   type="password" autocomplete="off" required
+                                                                   data-rule-equalto="#password1">
+														</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if form.errors %}
+                                                <div class="alert alert-danger mb-2" role="alert">
+                                                    Por favor, introduzca los valores correctos.
+                                                </div>
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-primary btn-uppercase btn-block">
+                                                Registrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

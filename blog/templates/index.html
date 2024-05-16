@@ -1,0 +1,99 @@
+{% extends "./base.html" %}
+
+{% block title %} Blog {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Crear Blog</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/create/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <label >Título:</label>
+                        <input type="text" id="titulo" name="titulo" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label >Contenido:</label>
+                        <input type="text" id="contenido" name="contenido" maxlength="50" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label >Categoría:</label>
+                        <input type="search" id="categoria" name="categoria" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+{#            <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
+            <a href="{% url 'categoria_list' %}" class="btn btn-info text-black">Crear categoría</a>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Lista Blog</h1>
+        <div class="col-12 text-right">
+            <form action="{% url 'buscar_productos' %}" method="GET" id="buscar-productos-form">{% csrf_token %}
+                <input type="text" id="buscar-productos" name="datos" placeholder="Buscar productos">
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
+        <div class="table-responsive py-2">
+            {% if blog %}
+                <table class="table table-striped table-hover" id="buscador">
+                    <thead class="bg-info text-center">
+                        <tr class="text-light">
+                            <th>Título</th>
+                            <th>Contenido</th>
+                            <th>Categoría</th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    {% for blo in blog %}
+                        <tr class="text-black">
+                            <td>{{ blo.titulo  }}</td>
+                            <td>{{ blo.contenido }}</td>
+                            <td>{{ blo.categoria }}</td>
+                            <td><a href="{%  url 'blog_detail' blo.id %}" class="btn btn-warning">Detalles</a></td>
+                            <td><a href="{%  url 'blog_edit' blo.id %}" class="btn btn-info">Editar</a></td>
+                            <td><a href="{%  url 'blog_delete' blo.id %}" class="btn btn-danger btnDelete">Eliminar</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+        $('#buscar-productos-form').submit(function(e) {
+            e.preventDefault();
+
+            var query = $('#buscar-productos').val();
+
+            $.ajax({
+                url: '{% url 'buscar_productos' %}',
+                data: {
+                    'datos': query
+                },
+                success: function(data) {
+                    $('#buscador').html(data);
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}

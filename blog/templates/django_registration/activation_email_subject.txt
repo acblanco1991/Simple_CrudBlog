@@ -1,0 +1,1 @@
+{{user.first_name}}, Por favor verifique su dirección de correo electrónico

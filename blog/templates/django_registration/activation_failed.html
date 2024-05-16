@@ -1,0 +1,25 @@
+{% extends 'layouts/registration.html' %}
+{% load static %}
+
+{% block otherstyles %}
+    <link href="{% static 'css/reset_password.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <main class="form-reset-password w-100 m-auto">
+        <form method="post">
+            {% csrf_token %}
+            <a href="{% url 'dashboard' %}">
+                <img class="mb-4" src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="72" height="57">
+            </a>
+            <h1 class="h3 mb-3 fw-normal">Registro</h1>
+
+            <div class="alert alert-danger mb-2" role="alert">
+                {{ activation_error.message }}
+            </div>
+
+            <a href="{% url 'login' %}" class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</a>
+            <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %}</p>
+        </form>
+    </main>
+{% endblock %}

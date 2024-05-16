@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action=""  method="post">{% csrf_token %}
+    <p>Estas seguro que desea eliminar {{ object }}</p>
+     {{ form }}
+    <input type="submit" value="Confirm">
+</form>
+{#    <input type="submit" value="Confirm">#}
+
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends 'layouts/registration.html' %}
+{% load static %}
+
+{% block otherstyles %}
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="contenedor">
+        <div class="int-contenedor py-0">
+            <div class="body py-0">
+                <div class="container-fluid">
+                    <div class="row auth-row">
+                        <div class="col-xl-7 col-lg-6 col-md-7 position-relative mx-auto">
+                            <div class=" flex-column pt-8 pb-md-8 pb-13">
+                                <div class="text-center mb-7">
+                                    <a class="navbar-brand me-0" href="{% url 'login' %}">
+                                        <img class="brand-img d-inline-block" src="{% static 'img/logo-light.png' %}"
+                                             alt="brand">
+                                    </a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-7 col-sm-10 mx-auto">
+                                        <div class="text-center mb-4">
+                                            <h4>Verificación del correo</h4>
+                                            <p>Un email de verificación ha sido enviado a <strong>{{ email }}</strong>
+                                                <br>
+                                                Si no recibe un correo electrónico verifique su carpeta de correo no
+                                                deseado.</p>
+                                        </div>
+                                        <a href="{% url 'login' %}" class="w-100 btn btn-lg btn-primary" type="submit">RD Analytics</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
