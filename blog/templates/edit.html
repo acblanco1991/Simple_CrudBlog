@@ -7,20 +7,23 @@
         <h2>Editar Blog</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'blog_edit' blog.id %}"  method="POST">
+                <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="titulo" name="titulo" value="{{blog.titulo}}" class="form-control" placeholder="Name"
-                            required>
+{#                        <input type="text" id="titulo" name="titulo" value="{{blog.titulo}}" class="form-control" placeholder="Name"#}
+{#                            required>#}
+                        {{ form.titulo }}
                     </div>
                     <div class="form-group">
-                        <input type="text" id="contenido" name="contenido" value="{{blog.contenido}}" class="form-control" placeholder="Contenido"
-                            required>
+{#                        <input type="text" id="contenido" name="contenido" value="{{blog.contenido}}" class="form-control" placeholder="Contenido"#}
+{#                            required>#}
+                        {{ form.contenido }}
                     </div>
-{#                    <div class="form-group">#}
+                    <div class="form-group">
 {#                        <input type="text" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
 {#                        placeholder="Skill"required>#}
-{#                    </div>#}
+                        {{ form.categoria }}
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Editar</button>
                     </div>
