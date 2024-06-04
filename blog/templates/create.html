@@ -1,0 +1,41 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %} Edit {% endblock %}
+
+{% block content %}
+<h2>Crear Blog</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/create/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-group">
+                        <label >Título:</label>
+                        {{ form.titulo }}
+{#                        <input type="text" id="titulo" name="titulo" class="form-control" required>#}
+                    </div>
+                    <div class="form-group">
+                        <label >Contenido:</label>
+                        {{ form.contenido }}
+{#                        <input type="text" id="contenido" name="contenido" maxlength="50" class="form-control" required>#}
+                    </div>
+                    <div class="form-group">
+                        <label >Categoría:</label>
+                        {{ form.categoria }}
+{#                        <input type="select" id="categoria" name="categoria" class="form-control" required>#}
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen:</label>
+                        {{ form.imagen }}
+{#                        <input type="select" id="categoria" name="categoria" class="form-control" required>#}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="card-body">
+            {#          <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
+            <a href="{% url 'blog_list' %}" class="btn btn-info text-black">Atrás</a>
+        </div>
+{% endblock %}

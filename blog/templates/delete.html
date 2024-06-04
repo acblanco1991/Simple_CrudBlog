@@ -5,13 +5,13 @@
 {% block content %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2>Eliminar Categoría</h2>
+        <h2>Eliminar Blog</h2>
         <div class="card">
             <div class="card-body">
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <p>Estás seguro que desea eliminar {{ object }}?</p>
+                        <p>Estás seguro que desea eliminar "{{ blog }}"?</p>
                         {{ form }}
                     </div>
                     <div class="form-group">
@@ -23,7 +23,7 @@
         </div>
         <div class="card-body">
             {#          <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
-            <a href="{% url 'categoria_list' %}" class="btn btn-info text-black">Atrás</a>
+            <a href="{% url 'blog_list' %}" class="btn btn-info text-black">Atrás</a>
         </div>
     </div>
 </div>

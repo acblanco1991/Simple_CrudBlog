@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Categoria, Blog
+# from fun.models import Playground
 
 # Register your models here.
 

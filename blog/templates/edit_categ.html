@@ -1,4 +1,5 @@
 {% extends "./base.html" %}
+{% load static %}
 {% block title %} Edit {% endblock %}
 
 {% block content %}
@@ -7,15 +8,20 @@
         <h2>Editar Categoría</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'categoria_edit' categoria.id %}"  method="POST">
+                <form action="{% url 'categoria_edit' pk=categoria.id %}"  method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="nombre" name="nombre" value="{{categoria.nombre}}" class="form-control" placeholder="Name"
-                            required>
+                        <label>Nombre:</label>
+                            {{ form.nombre }}
+
+{#                        <input type="text" id="nombre" name="nombre" value="{{categoria.nombre}}" class="form-control" placeholder="Name"#}
+{#                            required>#}
                     </div>
                     <div class="form-group">
-                        <input type="text" id="descripcion" name="descripcion" value="{{categoria.descripcion}}" class="form-control" placeholder="Contenido"
-                            required>
+                        <label>Descripción:</label>
+                            {{ form.descripcion }}
+{#                        <input type="text" id="descripcion" name="descripcion" value="{{categoria.descripcion}}" class="form-control" placeholder="Contenido"#}
+{#                            required>#}
                     </div>
 {#                    <div class="form-group">#}
 {#                        <input type="text" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
@@ -26,6 +32,10 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="card-body">
+            {#          <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
+            <a href="{% url 'categoria_list' %}" class="btn btn-info text-black">Atrás</a>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 {% extends "./base.html" %}
+{% load static %}
 
 {% block title %} Detalles {% endblock %}
 
@@ -8,15 +9,34 @@
         <h2>Detalles Blog</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'blog_detail' blog.id %}"  method="POST">
+                <form action="/detail/" method="POST">
                     {% csrf_token %}
+{#                    <div class="form-group">#}
+{#                        <input type="text" id="titulo" name="titulo" readonly value="{{blog.titulo}}" class="form-control" placeholder="Name"#}
+{#                            required>#}
+{#                    </div>#}
                     <div class="form-group">
-                        <input type="text" id="titulo" name="titulo" readonly value="{{blog.titulo}}" class="form-control" placeholder="Name"
-                            required>
+                        <label>Titulo:</label>
+                            {{ blog.titulo }}
+{#                        <input type="text" id="contenido" name="contenido" maxlength="50" class="form-control" required>#}
                     </div>
                     <div class="form-group">
-                        <input type="text" id="contenido" name="contenido" readonly value="{{blog.contenido}}" class="form-control" placeholder="Contenido"
-                            required>
+                        <label>Contenido:</label>
+                            {{ blog.contenido|safe }}
+{#                        <input type="text" id="contenido" name="contenido" readonly value="{{blog.contenido}}" class="form-control" placeholder="Contenido"#}
+{#                            required>#}
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría:</label>
+                            {{ blog.categoria }}
+{#                        <input type="select" id="categoria" name="categoria" readonly value="{{blog.categoria}}" class="form-control" placeholder="Categoria"#}
+{#                            required>#}
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen:</label>
+                            <img src="{{ blog.imagen.url }}" width="28">
+{#                        <input type="image" id="imagen" name="imagen" readonly value="{{blog.imagen}}" class="form-control" placeholder="Imagen"#}
+{#                            required>#}
                     </div>
 {#                    <div class="form-group">#}
 {#                        <input type="text" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
@@ -28,6 +48,10 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="card-body">
+            {#          <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
+            <a href="{% url 'blog_list' %}" class="btn btn-info text-black">Atrás</a>
         </div>
     </div>
 </div>

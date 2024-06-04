@@ -1,4 +1,10 @@
 {% extends "./base.html" %}
+{% load static %}
+{#{% load ckeditor %}#}
+{#{% load ckeditor_static %}#}
+{#{% load ckeditor %}#}
+{#{% ckeditor_init %}#}
+
 {% block title %} Edit {% endblock %}
 
 {% block content %}
@@ -7,26 +13,60 @@
         <h2>Editar Blog</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'blog_edit' blog.id %}"  method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="titulo" name="titulo" value="{{blog.titulo}}" class="form-control" placeholder="Name"
-                            required>
+                        <label>Titulo:</label>
+{#                        <input type="text" id="titulo" name="titulo" value="{{blog.titulo}}" class="form-control" placeholder="Name"#}
+{#                            required>#}
+                            {{form.titulo}}
                     </div>
                     <div class="form-group">
-                        <input type="text" id="contenido" name="contenido" value="{{blog.contenido}}" class="form-control" placeholder="Contenido"
-                            required>
+                        <label>Contenido:</label>
+{#                        {% wysiwyg_setup %}#}
+{#                        <textarea type="text" name="content" id="editor1"></textarea>#}
+                            {{ form.contenido|safe }}
+
+{#                        <input type="text" id="contenido" name="contenido" value="{{blog.contenido}}" class="form-control" placeholder="Contenido"#}
+{#                            required>#}
+{#                            {{form.contenido}}#}
+{#                        {% wysiwyg_editor "foo" %}#}
                     </div>
-{#                    <div class="form-group">#}
-{#                        <input type="text" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
-{#                        placeholder="Skill"required>#}
-{#                    </div>#}
+
+                    <div class="form-group">
+                        <label>Categoría:</label>
+                            {{form.categoria}}
+{#                        <input type="select" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
+{#                        placeholder="Categoria" required>#}
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen:</label>
+{#                            {{form.imagen}}#}
+                        {% if blog.imagen %}
+                            <img src="{{ blog.imagen.url }}" alt="" width="50">
+                        {% else %}
+                            <p>No hay imagen seleccionada.</p>
+                        {% endif %}
+                        {{ form.imagen }}
+{#                        <input type="select" id="categoria" name="categoria" value="{{blog.categoria}}" class="form-control"#}
+{#                        placeholder="Categoria" required>#}
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Editar</button>
                     </div>
                 </form>
             </div>
         </div>
+        <div class="card-body">
+            {#          <button type="submit" class="btn btn-info text-black">Crear categoría</button>#}
+            <a href="{% url 'blog_list' %}" class="btn btn-info text-black">Atrás</a>
+        </div>
     </div>
 </div>
 {% endblock %}
+
+{#{% block otherscript %}#}
+{#    {% load static %}#}
+{#    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>#}
+{#    CKEDITOR.replace('editor1');#}
+{#{% endblock %}#}

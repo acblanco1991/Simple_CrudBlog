@@ -1,0 +1,30 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %} Blog {% endblock %}
+
+{% block content %}
+    <h2>Crear Categoría</h2>
+    <div class="card">
+        <div class="card-body">
+            <form action="/createcateg/" method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    {{ form.nombre }}
+                    {#                            <input type="text" id="nombre" name="nombre" class="form-control" required>#}
+                </div>
+                <div class="form-group">
+                    <label>Descripción :</label>
+                    {{ form.descripcion }}
+                    {#                            <input type="text" id="descripción" name="descripción" class="form-control" required>#}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info btn-block text-white">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <a href="{% url 'categoria_list' %}" class="btn btn-info text-black">Atrás</a>
+    </div>
+{% endblock %}
